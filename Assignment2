@@ -1,0 +1,166 @@
+/* Name:- Sayali Madhukar Sable 
+   Roll:- DSEITA176 
+   Assignment 2 
+   */
+
+#include  <stdio.h> 
+#include  <string.h> 
+#include<stdlib.h> 
+struct match
+{
+char  name[50]; 
+int wikets,age;
+float  average_score; 
+char  country[50]; 
+int category;
+int odi,international;
+}player[50];
+void  swap(struct  match  *xp,  struct  match  *yp); 
+void  Batsman(int  n,struct  match  player[50]); 
+void  Sorting(int  n,struct  match  player[50]);
+void  Highest_score(int  n,struct  match  player[50]); 
+void  Bowler(int  n,struct  match  player[50]);
+void  Wikets(int  n,struct  match  player[50]); 
+void  Display(int  n,struct  match  player[50]); int main()
+{
+int  n,k,temp,a1[100],rk; 
+float  max=0,arr[100],temp1; 
+char  Country[50];
+printf("For  how  many  players  u  want  to  fill  the  information:"); 
+scanf("%d",&n);
+for(int  i=0;i<n;i++)
+{
+printf("\nEnter  the  information  of  %d  player\n",i+1); 
+printf("\nName:");
+scanf("%s",player[i].name); printf("Age:"); 
+scanf("%d",&player[i].age); printf("Country:");
+ 
+scanf("%s",player[i].country);
+printf("\nCatrgory  of  player:\n1)Batsman\n2)Bowler\n3)Wicket  keeper\n4)All rounder\n");
+scanf("%d",&player[i].category); if(player[i].category==1)
+{
+printf("Average  batting  score:"); 
+scanf("%f",&player[i].average_score);
+}
+else  if(player[i].category==2)
+{
+printf("Enter  no  of  wickets:"); scanf("%d",&player[i].wikets);
+}
+printf("No  of  odis  played:"); 
+scanf("%d",&player[i].odi);
+printf("Number  of  international  20-20  played:"); 
+scanf("%d",&player[i].international);
+}
+do
+{
+printf("\n\n1)Number  of  batsman  of  particular  country\n2)Sorting  batsman  as  per their  average  batting  score\n3)Batsman  with  higest  average  score\n4)Number  of bowlers  of  particular  country\n5)Maximum  no  of  wickets  that  taken  by bowler\n6)Display  board  information\n7)Exit  ");
+printf("\nEnter  above  choice:"); 
+scanf("%d",&k);
+switch(k)
+{
+case  1: Batsman(n,player); break;
+
+case  2: Sorting(n,player); break;
+case  3: Highest_score(n,player); break;
+case  4: Bowler(n,player); break;
+ 
+case  5:
+Wikets(n,player); break;
+case  6:
+Display(n,player); break;
+case 7:exit(0);
+}
+}while(k!=7);
+}
+void  Batsman(int  n,struct  match  player[50])
+{
+char  Country[15];
+printf("\nEnter  the  name  of  country  to  know  the  no  of  batsman:"); 
+scanf("%s",Country);
+int  count=0;
+for(int  i=0;i<n;i++)
+{
+
+if(strcmp(Country,player[i].country)==0)
+{
+if(player[i].category==1)
+
+count++;
+}
+}
+printf("\nno  of  batsman  of  %s  is  %d\n",Country,count);
+}
+void  swap(struct  match  *xp,  struct  match  *yp)
+{
+struct  match  temp  =  *xp;
+*xp = *yp;
+*yp = temp;
+}
+void  Sorting(int  n,struct  match  player[50])
+{
+for  (  int  i=1;i<n;i++)
+{
+for  (int  j=0;j<n-i;j++)
+{
+
+if(player[j].average_score<player[j+1].average_score)
+{
+swap(&player[j], &player[j+1]);
+ 
+}
+}
+}
+printf("\nNAME\t\tAVERAGE_SCORE\n"); for(int  i=0;i<n;i++)
+{
+
+printf("%s\t\t%f\n",player[i].name,player[i].average_score);
+}
+}
+void  Highest_score(int  n,struct  match  player[50])
+{
+for  (  int  i=1;i<n;i++)  { for  (int  j=0;j<n-i-1;j++){
+
+if(player[j].average_score<player[j+1].average_score)
+{
+swap(&player[j], &player[j+1]);
+}
+} }
+printf("\nBatsman  with  higest  average  score  is  %f",player[0].average_score);
+}
+void  Bowler(int  n,struct  match  player[50])
+{
+char  Country[15]; int  count=0;
+printf("\nEnter  the  name  of  country  to  know  the  no  of  bowlers:"); 
+scanf("%s",Country);
+for(int  i=0;i<n;i++)
+{
+
+if(strcmp(Country,player[i].country)==0)
+{
+if(player[i].category==2)
+
+count++;
+}
+}
+printf("\nNo  of  bowlers  of  %s  is  %d",Country,count);
+}
+void  Wikets(int  n,struct  match  player[50])
+{
+for  (  int  i=1;i<n;i++)  { for  (int  j=0;j<n-i;j++){
+ 
+
+if  (player[j].wikets<player[j+1].wikets)
+{
+swap(&player[j], &player[j+1]);
+}
+} }
+printf("\nHIGHEST  WICKET  BOWLER  :  \n");
+printf("%s  :  %d",player[0].name,player[0].wikets);
+}
+void  Display(int  n,struct  match  player[50])
+{
+printf("\nNAME  \tAGE  \tCOUNTRY\tODI_S_PLAYED\tINTERNATIONAL  20-20  \t  \n"); for(int  i=0;i<n;i++)
+{
+
+printf("%s\t\t%d\t\t%s\t\t%d\t\t\t%d\n",player[i].name,player[i].age,player[i].country,player[i].odi,player[i].international);
+}}
